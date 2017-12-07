@@ -1,6 +1,6 @@
 {
   "name": "react-app-rewire-vendor-splitting",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "dependencies": {
     "name-all-modules-plugin": "^1.0.1"
   },

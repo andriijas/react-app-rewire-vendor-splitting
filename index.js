@@ -3,7 +3,6 @@ const path = require("path");
 const webpack = require("webpack");
 const paths = require("react-app-rewired/scripts/utils/paths");
 const NameAllModulesPlugin = require("name-all-modules-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // Heavily based on https://github.com/facebookincubator/create-react-app/pull/3145
 
@@ -118,31 +117,15 @@ function rewireVendorSplitting(config, env) {
     config.plugins[etpIndex].options.allChunks = true;
   }
 
-  const hwpIndex = getPluginIndex(config, "HtmlWebpackPlugin");
-  if (hwpIndex > -1) {
-    config.plugins[hwpIndex] = new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
-      chunksSortMode: packageSort([
-        "runtime",
-        ...Object.keys(extractVendors() || {}),
-        "polyfills",
-        "main"
-      ]),
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true
-      }
-    });
-  }
+  //const hwpIndex = getPluginIndex(config, "HtmlWebpackPlugin");
+  // if (hwpIndex > -1) {
+  //   config.plugins[hwpIndex].options.chunksSortMode = packageSort([
+  //     "runtime",
+  //     ...Object.keys(extractVendors() || {}),
+  //     "polyfills",
+  //     "main"
+  //   ]),
+  // }
 
   return config;
 }
