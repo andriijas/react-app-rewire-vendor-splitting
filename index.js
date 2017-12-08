@@ -98,7 +98,7 @@ function rewireVendorSplitting(config, env) {
   if (fs.existsSync(paths.appVendors)) {
     config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
-        names: Object.keys(extractVendors()),
+        names: [...Object.keys(extractVendors()), "polyfills"],
         minChunks: Infinity
       })
     );
@@ -116,16 +116,6 @@ function rewireVendorSplitting(config, env) {
   if (etpIndex > -1) {
     config.plugins[etpIndex].options.allChunks = true;
   }
-
-  //const hwpIndex = getPluginIndex(config, "HtmlWebpackPlugin");
-  // if (hwpIndex > -1) {
-  //   config.plugins[hwpIndex].options.chunksSortMode = packageSort([
-  //     "runtime",
-  //     ...Object.keys(extractVendors() || {}),
-  //     "polyfills",
-  //     "main"
-  //   ]),
-  // }
 
   return config;
 }
