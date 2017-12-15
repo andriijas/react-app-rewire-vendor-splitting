@@ -38,7 +38,7 @@ In your react-app-rewired configuration:
 ```javascript
 /* config-overrides.js */
 
-const rewireVendorSplitting = require("./react-app-rewire-vendor-splitting");
+const rewireVendorSplitting = require("react-app-rewire-vendor-splitting");
 
 module.exports = function override(config, env) {
   config = rewireVendorSplitting(config, env);
