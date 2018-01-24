@@ -69,17 +69,7 @@ function rewireVendorSplitting(config, env) {
     return config;
   }
 
-  config.entry = Object.assign(
-    {
-      // Load the app and all its dependencies
-      main: paths.appIndexJs,
-      // Add the polyfills
-      polyfills: require.resolve(`${paths.scriptVersion}/config/polyfills`)
-    },
-    // Only add the vendors if the file "src/vendors.js" exists
-    // List of all the node modules that should be excluded from the app
-    extractVendors() || {}
-  );
+  config.entry = { ...config.entry, ...(extractVendors() || {}) };
 
   config.plugins.push(new webpack.NamedModulesPlugin());
 
@@ -98,7 +88,7 @@ function rewireVendorSplitting(config, env) {
   if (fs.existsSync(paths.appVendors)) {
     config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
-        names: [...Object.keys(extractVendors()), "polyfills"],
+        names: [...Object.keys(extractVendors())],
         minChunks: Infinity
       })
     );
