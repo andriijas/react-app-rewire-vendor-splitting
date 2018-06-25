@@ -61,7 +61,7 @@ const getPluginIndex = (config, name) => {
   const index = config.plugins.findIndex(
     plugin => plugin.constructor.name === name
   );
-  return index !== -1 ? index : null;
+  return index;
 };
 
 function rewireVendorSplitting(config, env) {
@@ -103,7 +103,7 @@ function rewireVendorSplitting(config, env) {
   config.plugins.push(new NameAllModulesPlugin());
 
   const etpIndex = getPluginIndex(config, "ExtractTextPlugin");
-  if (etpIndex > -1) {
+  if (!!~etpIndex) {
     config.plugins[etpIndex].options.allChunks = true;
   }
 
